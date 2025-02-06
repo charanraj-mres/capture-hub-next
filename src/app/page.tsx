@@ -7,7 +7,7 @@ import Gallery from "@/components/Home/Gallery";
 import Newsletter from "@/components/Home/Newsletter";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Kitchen",
+  title: "Capture Hub",
 };
 
 export default function Home() {
