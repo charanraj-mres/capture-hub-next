@@ -19,7 +19,7 @@ const Hero = () => {
             </p>
             <div className="md:flex align-middle justify-center lg:justify-start">
               <Link
-                href="#cook-section"
+                href="/appointment"
                 className="text-xl w-full md:w-auto font-medium rounded-full text-white py-5 px-6 bg-primary hover:text-primary lg:px-14 mr-6 border border-primary hover:bg-transparent"
               >
                 Book appointment

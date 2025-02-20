@@ -14,7 +14,10 @@ import toast from "react-hot-toast";
 import Logo from "@/components/Layout/Header/Logo";
 import Loader from "@/components/Common/Loader";
 
-const SignUp = () => {
+interface SignUpProps {
+  onSuccess?: () => void;
+}
+const SignUp: React.FC<SignUpProps> = ({ onSuccess }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -35,7 +38,6 @@ const SignUp = () => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      // Create user document
       await setDoc(doc(db, "users", result.user.uid), {
         email: result.user.email,
         name: result.user.displayName,
@@ -44,6 +46,7 @@ const SignUp = () => {
       });
 
       toast.success("Successfully signed up!");
+      onSuccess?.();
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);
@@ -63,7 +66,6 @@ const SignUp = () => {
         formData.password
       );
 
-      // Create user document
       await setDoc(doc(db, "users", result.user.uid), {
         email: formData.email,
         name: formData.name,
@@ -72,6 +74,7 @@ const SignUp = () => {
       });
 
       toast.success("Successfully registered");
+      onSuccess?.();
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);
@@ -79,7 +82,6 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-
   return (
     <>
       <div className="mb-10 text-center mx-auto inline-block">

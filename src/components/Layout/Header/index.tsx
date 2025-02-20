@@ -195,7 +195,7 @@ const Header: React.FC = () => {
                   className="text-black hover:text-primary text-24 inline-block me-2"
                 />
               </button>
-              <Signin />
+              <Signin onSuccess={() => setIsSignInOpen(false)} />
             </div>
           </div>
         )}
@@ -217,11 +217,10 @@ const Header: React.FC = () => {
                   className="text-white hover:text-primary text-24 inline-block me-2"
                 />
               </button>
-              <SignUp />
+              <SignUp onSuccess={() => setIsSignUpOpen(false)} />
             </div>
           </div>
         )}
-
         {/* Mobile Menu Overlay */}
         {navbarOpen && (
           <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40" />

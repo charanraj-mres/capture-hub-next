@@ -14,8 +14,10 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Logo from "@/components/Layout/Header/Logo";
 import Loader from "@/components/Common/Loader";
-
-const SignIn = () => {
+interface SignInProps {
+  onSuccess?: () => void;
+}
+const SignIn: React.FC<SignInProps> = ({ onSuccess }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState({
@@ -35,11 +37,9 @@ const SignIn = () => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      // Check if user exists in Firestore
       const userDoc = await getDoc(doc(db, "users", result.user.uid));
 
       if (!userDoc.exists()) {
-        // Create new user document
         await setDoc(doc(db, "users", result.user.uid), {
           email: result.user.email,
           name: result.user.displayName,
@@ -49,6 +49,7 @@ const SignIn = () => {
       }
 
       toast.success("Successfully signed in!");
+      onSuccess?.();
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);
@@ -87,6 +88,7 @@ const SignIn = () => {
       }
 
       toast.success("Login successful");
+      onSuccess?.();
       router.push("/");
     } catch (error: any) {
       toast.error(error.message);
